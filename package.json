@@ -1,0 +1,25 @@
+{
+  "name": "@nilo/agent-black-box",
+  "version": "0.1.0",
+  "description": "Operational receipts for AI agents: permissions, actions, evidence, outcomes, rollback readiness, and ROI.",
+  "type": "module",
+  "main": "./src/index.js",
+  "exports": "./src/index.js",
+  "scripts": {
+    "test": "node --test",
+    "example": "node examples/basic.mjs"
+  },
+  "keywords": [
+    "ai-agents",
+    "agent-observability",
+    "agent-audit",
+    "agent-governance",
+    "llm",
+    "mcp",
+    "agent-tracing"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">=20"
+  }
+}
