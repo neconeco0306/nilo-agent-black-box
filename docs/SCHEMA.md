@@ -88,6 +88,11 @@ Records whether reversal exists and whether it was attempted.
 
 Recommended fields: `available`, `method`, `attempted`, `success`, `note`.
 
+The receipt summary keeps rollback readiness separate from rollback execution:
+- `rollbackReady`: at least one recorded rollback path is available
+- `rollbackAttempted`: at least one rollback was actually attempted
+- `rollbackSucceeded`: `true` only when all attempted rollbacks succeeded, `false` when an attempted rollback failed, and `null` when no rollback was attempted
+
 ### `agent.finished`
 Closes the run with a final status and summary.
 
@@ -102,3 +107,7 @@ Tool result ≠ Business outcome ≠ Business value
 ```
 
 Keep all three separate whenever possible and link claims to evidence IDs when evidence exists.
+
+Unknown downstream facts must remain unknown. A successful tool result or verified external state change must not silently become inferred reach, conversion, revenue, time saved, or ROI.
+
+See [REALITY_TEST.md](./REALITY_TEST.md) for three sanitized external-action fixtures that motivated these distinctions.
