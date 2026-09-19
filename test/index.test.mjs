@@ -18,6 +18,8 @@ test('builds a compact receipt from agent events', () => {
   assert.equal(receipt.summary.evidenceCount, 1);
   assert.equal(receipt.summary.outcomeCount, 1);
   assert.equal(receipt.summary.rollbackReady, true);
+  assert.equal(receipt.summary.rollbackAttempted, false);
+  assert.equal(receipt.summary.rollbackSucceeded, null);
   assert.equal(receipt.events.at(-1).type, 'agent.finished');
 });
 
@@ -71,4 +73,39 @@ test('exports newline-delimited JSON', () => {
   assert.equal(lines.length, 2);
   assert.equal(JSON.parse(lines[0]).type, 'agent.started');
   assert.equal(JSON.parse(lines[1]).type, 'outcome');
+});
+
+
+test('keeps rollback readiness separate from rollback execution', () => {
+  const readyOnly = createBlackBox({ agentId: 'rollback-ready-only' });
+  readyOnly.rollback({ available: true, method: 'restore snapshot', attempted: false });
+  const readyReceipt = readyOnly.finish();
+  assert.equal(readyReceipt.summary.rollbackReady, true);
+  assert.equal(readyReceipt.summary.rollbackAttempted, false);
+  assert.equal(readyReceipt.summary.rollbackSucceeded, null);
+
+  const attempted = createBlackBox({ agentId: 'rollback-attempted' });
+  attempted.rollback({ available: true, method: 'restore snapshot', attempted: true, success: true });
+  const attemptedReceipt = attempted.finish();
+  assert.equal(attemptedReceipt.summary.rollbackReady, true);
+  assert.equal(attemptedReceipt.summary.rollbackAttempted, true);
+  assert.equal(attemptedReceipt.summary.rollbackSucceeded, true);
+});
+
+test('does not invent business value for verified operational outcomes', () => {
+  const box = createBlackBox({ agentId: 'unknown-value-test' });
+  box.toolResult({ tool: 'external.update', success: true });
+  box.outcome({
+    status: 'verified',
+    metric: 'public_state_changed',
+    target: true,
+    observed: true,
+    note: 'Conversion and revenue were not measured.'
+  });
+  const receipt = box.finish();
+  assert.equal(receipt.summary.value.revenueAttributed, null);
+  assert.equal(receipt.summary.value.profitAttributed, null);
+  assert.equal(receipt.summary.value.timeSavedMinutes, null);
+  assert.equal(receipt.summary.value.netValue, null);
+  assert.equal(receipt.summary.value.roi, null);
 });
