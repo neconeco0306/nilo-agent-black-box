@@ -206,6 +206,25 @@ This is not a full observability platform, policy engine, sandbox, cryptographic
 
 `0.1.x` is an experimental OSS preview extracted from Nilo's internal ProofLoop / Agent Receipt work. The public API and schema may change while real integrations are tested.
 
+## Reality test: bring one real agent run
+
+We are currently testing whether Agent Receipts are useful **outside our own agents**.
+
+If you have a real run where an agent sent a message, edited a repository, changed external data, used browser automation, or completed a multi-agent workflow, we want to map it into the receipt schema.
+
+Especially useful cases are ones where:
+
+- a tool returned success but the real-world outcome failed
+- you later needed to reconstruct why an agent changed something
+- you could not easily prove whether an automated action actually happened
+- business outcome and low-level tool success diverged
+
+We are looking for the first **3 real runs** and will help map them for free.
+
+→ [Share a sanitized run in the reality-test issue](https://github.com/neconeco0306/nilo-agent-black-box/issues/4)
+
+Please remove credentials, customer-private data, and other secrets before sharing.
+
 ## Contributing
 
 See `CONTRIBUTING.md`. Real agent failure modes, missing audit fields, interoperability cases, and evidence-verification examples are especially useful.
