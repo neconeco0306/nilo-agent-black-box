@@ -215,6 +215,8 @@ export class AgentBlackBox {
     const rollbacks = this.events.filter((event) => event.type === 'rollback');
     const evidence = this.events.filter((event) => event.type === 'evidence');
     const valueSource = valueEvents.length ? valueEvents : outcomes;
+    const attemptedRollbacks = rollbacks.filter((event) => event.data.attempted);
+    const successfulRollbacks = attemptedRollbacks.filter((event) => event.data.success === true);
 
     return {
       schemaVersion: '0.2',
@@ -233,6 +235,10 @@ export class AgentBlackBox {
         valueEventCount: valueEvents.length,
         rollbackRecorded: rollbacks.length > 0,
         rollbackReady: rollbacks.some((event) => event.data.available),
+        rollbackAttempted: attemptedRollbacks.length > 0,
+        rollbackSucceeded: attemptedRollbacks.length > 0
+          ? successfulRollbacks.length === attemptedRollbacks.length
+          : null,
         value: buildValueSummary(valueSource)
       },
       events: [...this.events]
