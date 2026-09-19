@@ -126,6 +126,8 @@ Every event includes a run ID, sequence number, timestamp, agent ID, and structu
     "evidenceCount": 1,
     "outcomeCount": 1,
     "rollbackReady": false,
+    "rollbackAttempted": false,
+    "rollbackSucceeded": null,
     "value": {
       "costMoney": 12,
       "revenueAttributed": 5000,
@@ -206,24 +208,19 @@ This is not a full observability platform, policy engine, sandbox, cryptographic
 
 `0.1.x` is an experimental OSS preview extracted from Nilo's internal ProofLoop / Agent Receipt work. The public API and schema may change while real integrations are tested.
 
-## Reality test: bring one real agent run
+## Reality test: 3 external-action fixtures completed
 
-We are currently testing whether Agent Receipts are useful **outside our own agents**.
+The first reality test collected three sanitized agent runs on materially different external surfaces:
 
-If you have a real run where an agent sent a message, edited a repository, changed external data, used browser automation, or completed a multi-agent workflow, we want to map it into the receipt schema.
+- Reddit browser/public-post flow
+- GitHub Discussion mutation plus authoritative read-back
+- Creem back-office asset update plus fresh public rendering verification
 
-Especially useful cases are ones where:
+The main finding is that operational success, externally verified state, downstream user behavior, and business value need to stay separate. Unknown conversion, revenue, time saved, and rollback execution remain unknown rather than being inferred.
 
-- a tool returned success but the real-world outcome failed
-- you later needed to reconstruct why an agent changed something
-- you could not easily prove whether an automated action actually happened
-- business outcome and low-level tool success diverged
+→ [Read the mapped fixtures and schema findings](./docs/REALITY_TEST.md)
 
-We are looking for the first **3 real runs** and will help map them for free.
-
-→ [Share a sanitized run in the reality-test issue](https://github.com/neconeco0306/nilo-agent-black-box/issues/4)
-
-Please remove credentials, customer-private data, and other secrets before sharing.
+The original collection issue is complete: [#4](https://github.com/neconeco0306/nilo-agent-black-box/issues/4).
 
 ## Contributing
 
