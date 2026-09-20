@@ -36,7 +36,7 @@ export function redditPublicPostFixture() {
     note: 'Permanent-page existence verified; independent visibility and business outcome remain unknown'
   });
   box.rollback({
-    available: false,
+    available: null,
     attempted: false,
     note: 'Edit/delete was not tested; rollback capability remains unknown'
   });
