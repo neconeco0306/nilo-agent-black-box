@@ -191,9 +191,9 @@ export class AgentBlackBox {
     return this.record('value', normalizeValueFields(fields));
   }
 
-  rollback({ available, method = null, attempted = false, success = null, note = '' }) {
+  rollback({ available = null, method = null, attempted = false, success = null, note = '' }) {
     return this.record('rollback', {
-      available: Boolean(available),
+      available: available === null || available === undefined ? null : Boolean(available),
       method,
       attempted: Boolean(attempted),
       success,
@@ -232,7 +232,8 @@ export class AgentBlackBox {
         outcomeCount: outcomes.length,
         valueEventCount: valueEvents.length,
         rollbackRecorded: rollbacks.length > 0,
-        rollbackReady: rollbacks.some((event) => event.data.available),
+        rollbackReady: rollbacks.some((event) => event.data.available === true),
+        rollbackUnknown: rollbacks.filter((event) => event.data.available === null).length,
         value: buildValueSummary(valueSource)
       },
       events: [...this.events]
