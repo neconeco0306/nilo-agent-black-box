@@ -72,3 +72,25 @@ test('exports newline-delimited JSON', () => {
   assert.equal(JSON.parse(lines[0]).type, 'agent.started');
   assert.equal(JSON.parse(lines[1]).type, 'outcome');
 });
+
+
+test('preserves unknown rollback availability instead of coercing it to false', () => {
+  const box = createBlackBox({ agentId: 'rollback-unknown-test' });
+  box.rollback({ available: null, attempted: false, note: 'not tested' });
+  const receipt = box.finish();
+  const rollback = receipt.events.find((event) => event.type === 'rollback');
+
+  assert.equal(rollback.data.available, null);
+  assert.equal(receipt.summary.rollbackReady, false);
+  assert.equal(receipt.summary.rollbackUnknown, 1);
+});
+
+test('keeps explicit unavailable rollback distinct from unknown', () => {
+  const box = createBlackBox({ agentId: 'rollback-unavailable-test' });
+  box.rollback({ available: false, attempted: false, note: 'known irreversible action' });
+  const receipt = box.finish();
+  const rollback = receipt.events.find((event) => event.type === 'rollback');
+
+  assert.equal(rollback.data.available, false);
+  assert.equal(receipt.summary.rollbackUnknown, 0);
+});
