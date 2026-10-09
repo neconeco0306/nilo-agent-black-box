@@ -4,7 +4,10 @@
   "description": "Operational receipts for AI agents: permissions, actions, evidence, outcomes, rollback readiness, and ROI.",
   "type": "module",
   "main": "./src/index.js",
-  "exports": "./src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./audit": "./src/audit.js"
+  },
   "scripts": {
     "test": "node --test",
     "example": "node examples/basic.mjs"
