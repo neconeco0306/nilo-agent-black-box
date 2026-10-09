@@ -146,7 +146,7 @@ export class AgentBlackBox {
     return this.record('permission.check', {
       action,
       resource,
-      allowed: Boolean(allowed),
+      allowed: allowed === true,
       reason,
       policy
     });
@@ -159,7 +159,7 @@ export class AgentBlackBox {
   toolResult({ tool, success, output = null, error = null, evidenceIds = [] }) {
     return this.record('tool.result', {
       tool,
-      success: Boolean(success),
+      success: success === true,
       output,
       error,
       evidenceIds
@@ -193,7 +193,7 @@ export class AgentBlackBox {
 
   rollback({ available = null, method = null, attempted = false, success = null, note = '' }) {
     return this.record('rollback', {
-      available: available === null || available === undefined ? null : Boolean(available),
+      available: available === null || available === undefined ? null : available === true,
       method,
       attempted: Boolean(attempted),
       success,
