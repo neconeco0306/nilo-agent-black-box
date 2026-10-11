@@ -108,11 +108,19 @@ function buildValueSummary(events) {
 }
 
 export class AgentBlackBox {
+  // Public inspection always receives a copy; the append-only recording history
+  // is never exposed as a writable array or mutable event object.
+  #events;
+
+  get events() {
+    return structuredClone(this.#events);
+  }
+
   constructor(options = {}) {
     this.runId = options.runId || randomUUID();
     this.agentId = options.agentId || 'unknown-agent';
     this.startedAt = options.startedAt || nowIso();
-    this.events = [];
+    this.#events = [];
     this.redactPatterns = options.redactPatterns || [
       /sk-[A-Za-z0-9_-]{12,}/g,
       /Bearer\s+[A-Za-z0-9._-]+/gi,
@@ -132,14 +140,14 @@ export class AgentBlackBox {
       id: randomUUID(),
       runId: this.runId,
       agentId: this.agentId,
-      sequence: this.events.length + 1,
+      sequence: this.#events.length + 1,
       type,
       timestamp: nowIso(),
       data: redactValue(cleanObject(data), this.redactPatterns)
     };
 
-    this.events.push(event);
-    return event;
+    this.#events.push(event);
+    return structuredClone(event);
   }
 
   permissionCheck({ action, resource, allowed, reason = '', policy = null }) {
@@ -207,13 +215,13 @@ export class AgentBlackBox {
   }
 
   receipt() {
-    const permissions = this.events.filter((event) => event.type === 'permission.check');
-    const toolCalls = this.events.filter((event) => event.type === 'tool.call');
-    const toolResults = this.events.filter((event) => event.type === 'tool.result');
-    const outcomes = this.events.filter((event) => event.type === 'outcome');
-    const valueEvents = this.events.filter((event) => event.type === 'value');
-    const rollbacks = this.events.filter((event) => event.type === 'rollback');
-    const evidence = this.events.filter((event) => event.type === 'evidence');
+    const permissions = this.#events.filter((event) => event.type === 'permission.check');
+    const toolCalls = this.#events.filter((event) => event.type === 'tool.call');
+    const toolResults = this.#events.filter((event) => event.type === 'tool.result');
+    const outcomes = this.#events.filter((event) => event.type === 'outcome');
+    const valueEvents = this.#events.filter((event) => event.type === 'value');
+    const rollbacks = this.#events.filter((event) => event.type === 'rollback');
+    const evidence = this.#events.filter((event) => event.type === 'evidence');
     const valueSource = valueEvents.length ? valueEvents : outcomes;
 
     return {
@@ -221,9 +229,9 @@ export class AgentBlackBox {
       runId: this.runId,
       agentId: this.agentId,
       startedAt: this.startedAt,
-      endedAt: this.events.at(-1)?.timestamp || null,
+      endedAt: this.#events.at(-1)?.timestamp || null,
       summary: {
-        eventCount: this.events.length,
+        eventCount: this.#events.length,
         permissionChecks: permissions.length,
         deniedPermissions: permissions.filter((event) => !event.data.allowed).length,
         toolCalls: toolCalls.length,
@@ -236,12 +244,12 @@ export class AgentBlackBox {
         rollbackUnknown: rollbacks.filter((event) => event.data.available === null).length,
         value: buildValueSummary(valueSource)
       },
-      events: [...this.events]
+      events: structuredClone(this.#events)
     };
   }
 
   toJSONL() {
-    return this.events.map((event) => JSON.stringify(event)).join('\n');
+    return this.#events.map((event) => JSON.stringify(event)).join('\n');
   }
 }
 
