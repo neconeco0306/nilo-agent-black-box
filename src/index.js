@@ -34,6 +34,18 @@ function cleanObject(value) {
   return String(value);
 }
 
+const SENSITIVE_FIELD_NAMES = new Set([
+  'apikey', 'xapikey', 'authorization', 'proxyauthorization',
+  'password', 'passwd', 'pwd', 'secret', 'clientsecret',
+  'privatekey', 'secretkey', 'token', 'accesstoken',
+  'refreshtoken', 'idtoken', 'bearertoken', 'sessiontoken',
+  'sessionid', 'cookie', 'setcookie', 'credential', 'credentials'
+]);
+
+function isSensitiveFieldName(name) {
+  return SENSITIVE_FIELD_NAMES.has(name.replace(/[-_]/g, '').toLowerCase());
+}
+
 function redactValue(value, patterns) {
   if (typeof value === 'string') {
     return patterns.reduce((text, pattern) => text.replace(pattern, '[REDACTED]'), value);
@@ -41,7 +53,7 @@ function redactValue(value, patterns) {
   if (Array.isArray(value)) return value.map((item) => redactValue(item, patterns));
   if (value && typeof value === 'object') {
     return Object.fromEntries(
-      Object.entries(value).map(([key, item]) => [key, redactValue(item, patterns)])
+      Object.entries(value).map(([key, item]) => [key, isSensitiveFieldName(key) ? '[REDACTED]' : redactValue(item, patterns)])
     );
   }
   return value;
