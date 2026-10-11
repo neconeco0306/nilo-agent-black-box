@@ -17,8 +17,11 @@ function nowIso() {
 }
 
 function numberOrNull(value) {
-  if (value === null || value === undefined || value === '') return null;
-  const number = Number(value);
+  if (typeof value === 'number') return Number.isFinite(value) ? value : null;
+  if (typeof value !== 'string') return null;
+  const decimal = value.trim();
+  if (!/^[+-]?(?:\d+(?:\.\d*)?|\.\d+)(?:e[+-]?\d+)?$/i.test(decimal)) return null;
+  const number = Number(decimal);
   return Number.isFinite(number) ? number : null;
 }
 
@@ -105,8 +108,14 @@ function buildValueSummary(events) {
   const profitAttributed = sumKnown(events, 'profitAttributed');
   const timeSavedMinutes = sumKnown(events, 'timeSavedMinutes');
   const humanInterventions = sumKnown(events, 'humanInterventions');
-  const netValue = profitAttributed === null ? null : profitAttributed - (costMoney ?? 0);
-  const roi = costMoney && netValue !== null ? netValue / costMoney : null;
+  // Each value event may represent a separate contribution. A missing cost is
+  // unknown, never an implicit zero. Partial totals cannot prove net value.
+  const moneyComplete = events.length > 0 && events.every((event) =>
+    numberOrNull(event.data?.costMoney) !== null &&
+    numberOrNull(event.data?.profitAttributed) !== null
+  );
+  const netValue = moneyComplete ? profitAttributed - costMoney : null;
+  const roi = moneyComplete && costMoney > 0 ? netValue / costMoney : null;
 
   return {
     costMoney,
