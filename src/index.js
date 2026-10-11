@@ -20,7 +20,7 @@ function numberOrNull(value) {
   if (typeof value === 'number') return Number.isFinite(value) ? value : null;
   if (typeof value !== 'string') return null;
   const decimal = value.trim();
-  if (!/^[+-]?(?:\\d+(?:\\.\\d*)?|\\.\\d+)(?:e[+-]?\\d+)?$/i.test(decimal)) return null;
+  if (!/^[+-]?(?:\d+(?:\.\d*)?|\.\d+)(?:e[+-]?\d+)?$/i.test(decimal)) return null;
   const number = Number(decimal);
   return Number.isFinite(number) ? number : null;
 }
