@@ -155,7 +155,7 @@ That makes it possible to keep low-level observability and outcome verification 
 
 ## Redaction
 
-The recorder performs lightweight redaction for common bearer tokens, API keys, and secret-like strings before events are stored. This is a safety net, not a substitute for proper secret handling. **Do not intentionally pass credentials into traces.**
+The recorder performs lightweight redaction for common bearer tokens, API keys, and secret-like strings before events are stored. Sensitive field names such as `api_key`, `password`, `Authorization`, and `session_token` are also redacted recursively, even when their values are short or do not match the pattern list. This is a safety net, not a substitute for proper secret handling. **Do not intentionally pass credentials into traces.**
 
 Custom patterns can be supplied:
 
