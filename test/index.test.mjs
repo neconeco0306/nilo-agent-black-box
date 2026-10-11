@@ -94,3 +94,30 @@ test('keeps explicit unavailable rollback distinct from unknown', () => {
   assert.equal(rollback.data.available, false);
   assert.equal(receipt.summary.rollbackUnknown, 0);
 });
+
+test('redacts sensitive field names even when values are short and unpatterned', () => {
+  const box = createBlackBox({ agentId: 'sensitive-fields-test' });
+  const event = box.toolCall({
+    tool: 'api.call',
+    input: {
+      api_key: 'abc',
+      password: 'pw',
+      Authorization: 'Basic abc',
+      nested: { refreshToken: 'short', client_secret: 'x' },
+      headers: { 'X-API-Key': 'tiny', cookie: 'sid=1' },
+      requests: [{ session_token: 'test' }],
+      safe: { tokenCount: 42, action: 'read', retries: 3 }
+    }
+  });
+
+  const input = event.data.input;
+  assert.equal(input.api_key, '[REDACTED]');
+  assert.equal(input.password, '[REDACTED]');
+  assert.equal(input.Authorization, '[REDACTED]');
+  assert.equal(input.nested.refreshToken, '[REDACTED]');
+  assert.equal(input.nested.client_secret, '[REDACTED]');
+  assert.equal(input.headers['X-API-Key'], '[REDACTED]');
+  assert.equal(input.headers.cookie, '[REDACTED]');
+  assert.equal(input.requests[0].session_token, '[REDACTED]');
+  assert.deepEqual(input.safe, { tokenCount: 42, action: 'read', retries: 3 });
+});
