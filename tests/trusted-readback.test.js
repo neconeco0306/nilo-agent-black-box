@@ -59,6 +59,8 @@ test('unavailable replay storage prevents read', async () => assert.equal((await
 test('cannot lower an approved target', async () => assert.equal((await check(f=>f.input.contract.target=0)).reason, 'invalid_or_out_of_scope_grant'));
 test('cannot redefine an approved metric', async () => assert.equal((await check(f=>f.input.contract.metric='wrong')).reason, 'invalid_or_out_of_scope_grant'));
 test('cannot change an approved comparator', async () => assert.equal((await check(f=>f.input.contract.comparator='lte')).reason, 'invalid_or_out_of_scope_grant'));
-test('cannot change the approved tool', async () => assert.equal((await check(f=>f.input.contract.tool='other')).reason, 'invalid_or_out_of_scope_grant'));
-test('expired during slow readback is not accepted', async () => {const f=fixture();let i=0; f.input.clock=()=> i++===0?now:'2026-10-13T01:20:00.000Z';assert.equal((await evaluateWithReadback(f.input)).reason,'grant_expired_during_readback');});
+test('cannot change the approved tool', async () => assert.equal((await check(f=>f.input.contract.tool='other')).reason, 'authorized_tool_call_not_observed'));
+test('expired during slow readback is not accepted', async () => {const f=fixture();let i=0; f.input.clock=()=> ++i<3?now:'2026-10-13T01:20:00.000Z';assert.equal((await evaluateWithReadback(f.input)).reason,'grant_expired_during_readback');});
 test('pause raised while readback was running blocks acceptance', async () => {const f=fixture(); f.input.reader.read=async()=>{f.state.paused=true;return f.observation};assert.equal((await evaluateWithReadback(f.input)).reason,'external_pause');});
+
+test('invalid receipt never triggers privileged readback', async () => {const f=fixture(); f.input.receipt.events[1].data.permissionEventId='forge'; const out=await evaluateWithReadback(f.input); assert.equal(out.reason,'authorized_tool_call_not_observed'); assert.equal(f.state.readerCalls,0); assert.equal(f.state.authorizeCalls,0);});
