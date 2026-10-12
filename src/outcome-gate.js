@@ -40,6 +40,7 @@ export function evaluateOutcome({ contract, receipt, observation, now = new Date
   const nowMs = validDate(now);
   if (nowMs === null) return invalid('invalid_clock');
   const events = receipt.events;
+  if (events.length > 5000) return invalid('receipt_event_limit_exceeded');
   // A receipt is untrusted telemetry. Catch simple structural/tampering errors;
   // authentication and append-only storage require independent infrastructure.
   const ids = new Set();
