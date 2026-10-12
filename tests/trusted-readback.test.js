@@ -15,7 +15,9 @@ function fixture() {
   const grant = { grantId: 'nonce-1', policyVersion: 'p1', allowed: true, readOnly: true,
     issuedAt: '2026-10-13T00:50:00.000Z', expiresAt: '2026-10-13T01:10:00.000Z',
     projectId: contract.projectId, runId: contract.runId, contractId: contract.contractId,
-    action: contract.action, resource: contract.resource, observer: contract.observer };
+    action: contract.action, resource: contract.resource, observer: contract.observer,
+    tool: contract.tool, metric: contract.metric, target: contract.target, comparator: contract.comparator,
+    maxObservationAgeSeconds: contract.maxObservationAgeSeconds };
   const observation = { runId: contract.runId, resource: contract.resource, metric: contract.metric,
     source: contract.observer, value: 1, observedAt: '2026-10-13T00:55:00.000Z', reference: 'synthetic:1' };
   const state = { paused: false, consumed: new Set(), readerCalls: 0, authorizeCalls: 0 };
@@ -53,3 +55,10 @@ test('self-reported outcome success cannot override external miss', async () => 
 });
 test('invalid metadata result cannot pass', async () => assert.equal((await check(f=>f.grant.grantId='')).reason,'invalid_or_out_of_scope_grant'));
 test('unavailable replay storage prevents read', async () => assert.equal((await check(f=>f.input.authority.consumeGrant=async()=>false)).reason, 'grant_replay_or_unavailable'));
+
+test('cannot lower an approved target', async () => assert.equal((await check(f=>f.input.contract.target=0)).reason, 'invalid_or_out_of_scope_grant'));
+test('cannot redefine an approved metric', async () => assert.equal((await check(f=>f.input.contract.metric='wrong')).reason, 'invalid_or_out_of_scope_grant'));
+test('cannot change an approved comparator', async () => assert.equal((await check(f=>f.input.contract.comparator='lte')).reason, 'invalid_or_out_of_scope_grant'));
+test('cannot change the approved tool', async () => assert.equal((await check(f=>f.input.contract.tool='other')).reason, 'invalid_or_out_of_scope_grant'));
+test('expired during slow readback is not accepted', async () => {const f=fixture();let i=0; f.input.clock=()=> i++===0?now:'2026-10-13T01:20:00.000Z';assert.equal((await evaluateWithReadback(f.input)).reason,'grant_expired_during_readback');});
+test('pause raised while readback was running blocks acceptance', async () => {const f=fixture(); f.input.reader.read=async()=>{f.state.paused=true;return f.observation};assert.equal((await evaluateWithReadback(f.input)).reason,'external_pause');});
