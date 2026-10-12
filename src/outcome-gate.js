@@ -42,24 +42,39 @@ export function evaluateOutcome({ contract, receipt, observation, now = new Date
   const events = receipt.events;
   // A receipt is untrusted telemetry. Catch simple structural/tampering errors;
   // authentication and append-only storage require independent infrastructure.
-  if (events.some((e, i) => !e || e.runId !== contract.runId || e.sequence !== i + 1)) {
-    return invalid('receipt_sequence_or_run_invalid');
-  }
+  const ids = new Set();
+  if (events.some((e, i) => {
+    if (!e || typeof e.id !== 'string' || !e.id || ids.has(e.id) ||
+        e.runId !== contract.runId || e.sequence !== i + 1 ||
+        !e.data || typeof e.data !== 'object' || Array.isArray(e.data)) return true;
+    ids.add(e.id);
+    return false;
+  })) return invalid('receipt_sequence_or_run_invalid');
+
+  // V0 contract handles exactly one operation. Multiple calls or results to the
+  // same tool are ambiguous until stable per-call result IDs are implemented.
   const matchingPermissions = events.filter(e => e.type === 'permission.check' &&
-    e.data?.action === contract.action && e.data?.resource === contract.resource);
+    e.data.action === contract.action && e.data.resource === contract.resource);
   if (matchingPermissions.some(e => e.data.allowed !== true)) {
     return invalid('action_permission_denied', RESPONSE.BLOCKED);
   }
   if (!matchingPermissions.length) return invalid('no_matching_permission', RESPONSE.BLOCKED);
-  const granted = new Map(matchingPermissions.map(e => [e.id, e]));
-  const calls = events.filter(e => e.type === 'tool.call' &&
-    e.data?.tool === contract.tool && granted.has(e.data?.permissionEventId) &&
-    granted.get(e.data?.permissionEventId).sequence < e.sequence);
-  if (!calls.length) return invalid('authorized_tool_call_not_observed');
-  const successResults = events.filter(e => e.type === 'tool.result' &&
-    e.data?.tool === contract.tool && e.data?.success === true &&
-    calls.some(c => c.sequence < e.sequence));
-  if (!successResults.length) return invalid('no_successful_tool_result');
+  if (matchingPermissions.length !== 1) return invalid('ambiguous_permissions');
+  const permission = matchingPermissions[0];
+  const allCalls = events.filter(e => e.type === 'tool.call' && e.data.tool === contract.tool);
+  if (allCalls.length === 0 || !allCalls.some(e =>
+      e.data.permissionEventId === permission.id && e.sequence > permission.sequence)) {
+    return invalid('authorized_tool_call_not_observed');
+  }
+  if (allCalls.length !== 1 || allCalls[0].data.permissionEventId !== permission.id) {
+    return invalid('ambiguous_tool_calls');
+  }
+  const results = events.filter(e => e.type === 'tool.result' && e.data.tool === contract.tool);
+  if (results.length === 0) return invalid('no_successful_tool_result');
+  if (results.length !== 1) return invalid('ambiguous_tool_results');
+  if (results[0].sequence <= allCalls[0].sequence || results[0].data.success !== true) {
+    return invalid('no_successful_tool_result');
+  }
   // This is not an outcome check: tool success is only a prerequisite.
   if (!observation || typeof observation !== 'object') return invalid('independent_readback_missing');
   if (observation.runId !== contract.runId || observation.resource !== contract.resource ||
