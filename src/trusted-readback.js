@@ -24,6 +24,12 @@ export async function evaluateWithReadback({ contract, receipt, authority, reade
       typeof reader?.read !== 'function') {
     return stop('blocked', 'trusted_dependencies_missing');
   }
+  // Reject invalid/self-contradictory receipts before consuming any grant
+  // or reading from an owner-controlled data source.
+  const preflight = evaluateOutcome({ contract, receipt, observation: null, now: clock() });
+  if (preflight.reason !== 'independent_readback_missing') {
+    return { ...preflight, trust: 'not_verified' };
+  }
   const request = Object.freeze({
     projectId: contract.projectId, runId: contract.runId,
     contractId: contract.contractId, action: contract.action,
