@@ -28,14 +28,16 @@ export async function evaluateWithReadback({ contract, receipt, authority, reade
     projectId: contract.projectId, runId: contract.runId,
     contractId: contract.contractId, action: contract.action,
     resource: contract.resource, observer: contract.observer,
-    metric: contract.metric
+    tool: contract.tool, metric: contract.metric, comparator: contract.comparator,
+    target: contract.target, maxObservationAgeSeconds: contract.maxObservationAgeSeconds
   });
   try {
     if (await authority.isPaused(request) !== false) return stop('blocked', 'external_pause');
     const grant = await authority.authorizeReadback(request);
     if (!grant || grant.allowed !== true || grant.readOnly !== true ||
         !valid(grant.grantId) || !valid(grant.policyVersion) ||
-        !['projectId', 'runId', 'contractId', 'action', 'resource', 'observer'].every(k => grant[k] === request[k])) {
+        !['projectId', 'runId', 'contractId', 'action', 'resource', 'observer',
+          'tool', 'metric', 'comparator', 'target', 'maxObservationAgeSeconds'].every(k => grant[k] === request[k])) {
       return stop('blocked', 'invalid_or_out_of_scope_grant');
     }
     const issued = time(grant.issuedAt);
@@ -52,7 +54,10 @@ export async function evaluateWithReadback({ contract, receipt, authority, reade
     }
     if (await authority.isPaused(request) !== false) return stop('blocked', 'external_pause');
     const observation = await reader.read(Object.freeze({ ...request, grantId: grant.grantId }));
-    const outcome = evaluateOutcome({ contract, receipt, observation, now: clock() });
+    const checkedAt = clock();
+    if (time(checkedAt) === null || time(checkedAt) >= expires) return stop('blocked', 'grant_expired_during_readback');
+    if (await authority.isPaused(request) !== false) return stop('blocked', 'external_pause');
+    const outcome = evaluateOutcome({ contract, receipt, observation, now: checkedAt });
     return {
       ...outcome,
       trust: outcome.status === 'supported' ? 'declared_adapter_readback' : 'not_verified',
