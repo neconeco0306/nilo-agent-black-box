@@ -1,0 +1,35 @@
+[
+  {
+    "id": "public-post",
+    "origin": "external-contributor-report-not-independently-reproduced",
+    "reference": "https://github.com/neconeco0306/nilo-agent-black-box/issues/4#issuecomment-5742977005",
+    "resource": "example:public-post",
+    "claimed_operation": "submit a permitted public announcement",
+    "supported_metric": "permalink_content_matches",
+    "unconfirmed_metric": "independent_public_visibility",
+    "business_metric": "qualified_leads_or_sales",
+    "commercial_outcome": null
+  },
+  {
+    "id": "discussion-update",
+    "origin": "external-contributor-report-not-independently-reproduced",
+    "reference": "https://github.com/neconeco0306/nilo-agent-black-box/issues/4#issuecomment-5744920122",
+    "resource": "example:github-discussion",
+    "claimed_operation": "edit a GitHub Discussion and read back the full body",
+    "supported_metric": "updated_discussion_preserves_existing_sections",
+    "unconfirmed_metric": "downstream_setup_reports",
+    "business_metric": "support_cost_reduction",
+    "commercial_outcome": null
+  },
+  {
+    "id": "storefront-assets",
+    "origin": "external-contributor-report-not-independently-reproduced",
+    "reference": "https://github.com/neconeco0306/nilo-agent-black-box/issues/4#issuecomment-5745054690",
+    "resource": "example:public-storefront",
+    "claimed_operation": "replace authorized banner and product covers and inspect the public rendering",
+    "supported_metric": "new_assets_render_at_public_storefront",
+    "unconfirmed_metric": "checkout_conversion",
+    "business_metric": "attributable_paid_orders",
+    "commercial_outcome": null
+  }
+]
