@@ -49,3 +49,5 @@ test('rejects a second identical tool call without call-id correlation', () => a
 test('rejects extra identical tool result', () => assert.equal(run(a => a.receipt.events.push({ id: 'result2', runId: 'run-001', sequence: 6, type: 'tool.result', data: { tool: a.contract.tool, success: true } })).reason, 'ambiguous_tool_results'));
 test('rejects contradictory allowed and denied permissions', () => assert.equal(run(a => a.receipt.events.push({ id: 'deny', runId: 'run-001', sequence: 6, type: 'permission.check', data: { action: a.contract.action, resource: a.contract.resource, allowed: false } })).status, 'blocked'));
 test('rejects two allowed grants for same action', () => assert.equal(run(a => a.receipt.events.push({ id: 'grant2', runId: 'run-001', sequence: 6, type: 'permission.check', data: { action: a.contract.action, resource: a.contract.resource, allowed: true } })).reason, 'ambiguous_permissions'));
+
+test('rejects an oversized receipt before looping over events', () => assert.equal(run(a => a.receipt.events = Array(5001).fill({})).reason, 'receipt_event_limit_exceeded'));
