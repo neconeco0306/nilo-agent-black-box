@@ -43,3 +43,9 @@ test('NaN-like target rejected', () => assert.equal(run(a => a.contract.target =
 test('incorrect tool mismatch rejected', () => assert.equal(run(a => a.receipt.events[3].data.tool = 'other.tool').reason, 'no_successful_tool_result'));
 test('less-than threshold supported', () => assert.equal(run(a => { a.contract.comparator='lte'; a.contract.target=2; }).status, 'supported'));
 test('exact threshold missed', () => assert.equal(run(a => { a.contract.comparator='eq'; a.contract.target=2; }).status, 'missed'));
+
+test('rejects duplicate receipt event identifiers', () => assert.equal(run(a => a.receipt.events[2].id = 'grant').reason, 'receipt_sequence_or_run_invalid'));
+test('rejects a second identical tool call without call-id correlation', () => assert.equal(run(a => a.receipt.events.push({ id: 'call2', runId: 'run-001', sequence: 6, type: 'tool.call', data: { tool: a.contract.tool, permissionEventId: 'grant' } })).reason, 'ambiguous_tool_calls'));
+test('rejects extra identical tool result', () => assert.equal(run(a => a.receipt.events.push({ id: 'result2', runId: 'run-001', sequence: 6, type: 'tool.result', data: { tool: a.contract.tool, success: true } })).reason, 'ambiguous_tool_results'));
+test('rejects contradictory allowed and denied permissions', () => assert.equal(run(a => a.receipt.events.push({ id: 'deny', runId: 'run-001', sequence: 6, type: 'permission.check', data: { action: a.contract.action, resource: a.contract.resource, allowed: false } })).status, 'blocked'));
+test('rejects two allowed grants for same action', () => assert.equal(run(a => a.receipt.events.push({ id: 'grant2', runId: 'run-001', sequence: 6, type: 'permission.check', data: { action: a.contract.action, resource: a.contract.resource, allowed: true } })).reason, 'ambiguous_permissions'));
