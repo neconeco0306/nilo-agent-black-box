@@ -236,3 +236,8 @@ See `SECURITY.md`. Please do not publish real credentials or customer-private da
 ## License
 
 MIT
+
+
+## Receipt truthfulness: fail-closed boolean inputs
+
+JavaScript considers `Boolean('false')` true. To prevent a common integration error from turning an explicit string `"false"` into authorization or recorded success, `permissionCheck.allowed`, `toolResult.success`, and `rollback.available` now treat only the boolean `true` as true (`rollback.available` still preserves null/undefined as unknown). Integrations should pass real JSON booleans, not strings. This is a recording safeguard, **not** a permission enforcement or evidence-verification boundary; a caller can still record incorrect claims. Do not interpret receipt summaries alone as proof of real outcomes.
