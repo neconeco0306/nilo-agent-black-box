@@ -260,3 +260,7 @@ export class AgentBlackBox {
 export function createBlackBox(options = {}) {
   return new AgentBlackBox(options);
 }
+
+// Experimental read-only outcome verification APIs (shadow mode).
+export { evaluateOutcome } from './outcome-gate.js';
+export { evaluateWithReadback } from './trusted-readback.js';
