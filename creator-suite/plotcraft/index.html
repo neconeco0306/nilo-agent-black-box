@@ -1,0 +1,227 @@
+<!doctype html><html lang="ja"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="PLOTCRAFT — グラフを美しく、正確に。無料・登録不要・ローカル処理でベクター書き出し。"><meta name="theme-color" content="#0f172a"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline'; img-src blob: data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'"><title>PLOTCRAFT — Data, beautifully told.</title><style>
+:root{--night:#111722;--night2:#1b2231;--blue:#7c9cff;--paper:#f4f5f8;--ink:#182134;--sub:#627084;--line:#dfe5ed}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Inter,-apple-system,BlinkMacSystemFont,'Hiragino Sans','Noto Sans JP',system-ui,sans-serif;color:var(--ink);background:var(--paper)}button,select,input,textarea{font:inherit}button{cursor:pointer}button:disabled{opacity:.45;cursor:not-allowed}button:focus-visible,textarea:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #7c9cff;outline-offset:2px}.shell{max-width:1600px;margin:auto}.top{background:var(--night);color:#fff}.nav{display:flex;align-items:center;justify-content:space-between;gap:20px;border-bottom:1px solid #ffffff18;padding:23px 46px}.logo{font-weight:900;letter-spacing:-1.2px;font-size:23px}.logo span{color:#9eb1ff}.nav-right{display:flex;align-items:center;gap:18px;color:#c7cfde;font-size:11px;letter-spacing:.6px}.pill{border:1px solid #ffffff35;padding:8px 12px;border-radius:99px;color:#c8d1e2}.dot{display:inline-block;width:7px;height:7px;background:#80dcb4;border-radius:50%;margin-right:8px}.headline{padding:68px 46px 76px;display:grid;grid-template-columns:1.2fr .8fr;gap:70px;align-items:end}.kicker{color:#9cb0ff;font-size:11px;letter-spacing:3px;font-weight:800}.headline h1{font-size:clamp(44px,5.2vw,78px);line-height:1.1;letter-spacing:-5px;margin:21px 0}.headline h1 em{font-style:normal;color:#9cb0ff}.headline .lead{font-size:14px;line-height:2.1;color:#d1d7e3;max-width:550px}.headline-side{border-top:1px solid #ffffff45;padding-top:22px;color:#b5bed1;font-size:13px;line-height:1.8;display:flex;justify-content:space-between;gap:26px}.headline-side b{display:block;color:white;font-size:26px;letter-spacing:-1px;margin-bottom:6px}.editor{padding:42px 46px 70px}.editor-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:15px;margin-bottom:24px}.editor-heading h2{font-size:26px;margin:0;letter-spacing:-1.1px}.editor-heading p{font-size:12px;color:var(--sub);margin:8px 0 0}.editor-badge{font-size:10px;color:#526782;background:#e6ebf2;padding:9px 14px;border-radius:8px;font-weight:800}.workbench{display:grid;grid-template-columns:336px minmax(0,1fr);min-height:760px;border-radius:19px;border:1px solid #dfe4ed;background:#fff;overflow:hidden;box-shadow:0 22px 55px #24334a0e}.controls{background:#fdfdff;border-right:1px solid var(--line);padding:25px 22px;overflow-y:auto}.section-id{color:#7d879c;font-size:10px;letter-spacing:1.6px;font-weight:800;margin:0 0 15px;display:block}.field{display:flex;flex-direction:column;gap:8px;margin-bottom:18px}.field>label{font-size:11px;color:#354258;font-weight:800}.field input,.field select{width:100%;height:40px;border:1px solid #dce1eb;border-radius:8px;color:#2a364c;padding:0 11px;background:white;outline-offset:1px;font-size:12px}.field textarea{height:127px;resize:vertical;border:1px solid #dce1eb;border-radius:8px;padding:11px 12px;line-height:1.6;color:#2a364c;font:11px/1.65 ui-monospace,monospace;width:100%}.field-help{font-size:10px;color:#8d98a9;line-height:1.65}.samples{display:flex;gap:7px;flex-wrap:wrap;margin:10px 0 16px}.samples button{background:#edf0ff;border:1px solid #dce4ff;border-radius:7px;padding:8px 11px;color:#4559a3;font-size:10px;font-weight:800}.upload{display:block;text-align:center;border:1px dashed #b7c5d9;border-radius:9px;padding:11px;color:#566a8e;font-weight:800;font-size:11px;margin-bottom:13px;cursor:pointer;background:#f7f9fd}.upload input{display:none}.divider{height:1px;background:#e5e9f0;margin:25px 0}.chart-kind{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:20px}.chart-kind button{display:flex;flex-direction:column;justify-content:center;align-items:center;gap:7px;background:#fff;border:1px solid #dfe4ec;border-radius:9px;padding:12px 4px;font-size:10px;font-weight:750;color:#626e81;transition:.12s}.chart-kind button span{font-size:20px;font-family:ui-monospace,monospace;line-height:1}.chart-kind button.active{color:#315bcf;background:#edf3ff;border-color:#7f9ff8;box-shadow:inset 0 0 0 1px #7f9ff8}.data-fields{display:grid;grid-template-columns:1fr 1fr;gap:10px}.accent-choices{display:flex;gap:10px;padding:5px 0 14px}.accent{width:28px;height:28px;border-radius:50%;border:2px solid white;outline:2px solid transparent}.accent.active{outline-color:#273348}.preview{padding:24px 28px 30px;display:flex;flex-direction:column;min-width:0;background:#fbfcff}.previewbar{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:0 2px 19px}.previewbar strong{font-size:13px}.previewbar p{font-size:10px;color:#8c98a9;margin:5px 0 0}.live{font-size:10px;background:#e8f8f1;color:#16865c;padding:7px 10px;border-radius:99px;font-weight:800}.canvas-box{border:1px solid #e6e9ef;border-radius:13px;background:white;box-shadow:0 10px 35px #22304a09;min-height:360px;padding:8px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}.canvas-box svg{width:100%;height:auto;display:block}.empty-error{padding:45px 30px;text-align:center;font-size:14px;color:#a33e51}.export{display:flex;gap:9px;flex-wrap:wrap;margin-top:24px;align-items:center}.export button{border:1px solid #dbe3ee;color:#27354e;background:#fff;border-radius:9px;font-weight:800;font-size:11px;min-height:43px;padding:0 17px}.export button.primary{background:#315cea;color:white;border-color:#315cea;box-shadow:0 6px 13px #315cea30}.export button:hover:not(:disabled){transform:translateY(-1px);filter:brightness(.98)}.inspector{margin-top:24px;border:1px solid #e6eaf0;background:#f5f7fb;border-radius:10px;padding:18px 20px;display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.stat span{display:block;font-size:10px;color:#8a97a9}.stat strong{font-size:19px;letter-spacing:-.7px;margin-top:7px;display:block}.warning{margin-top:13px;padding:12px 14px;background:#fff4df;border-radius:7px;font-size:11px;color:#825f2f;line-height:1.6}.warning[hidden]{display:none}.foot{padding:28px 46px 40px;border-top:1px solid #dfe4ec;display:flex;justify-content:space-between;gap:30px;font-size:11px;color:#79869a}.foot b{color:#253043}.toast{position:fixed;bottom:25px;left:50%;transform:translate(-50%,110px);background:#171c29;color:white;padding:12px 19px;border-radius:9px;font-size:12px;box-shadow:0 8px 28px #1b243342;z-index:3;transition:transform .25s}.toast.show{transform:translate(-50%,0)}.sr-only{position:absolute;width:1px;height:1px;clip:rect(0 0 0 0);overflow:hidden}@media(max-width:1000px){.workbench{grid-template-columns:285px minmax(0,1fr)}.editor{padding:32px 23px}.headline{padding:51px 28px 58px;gap:30px}.headline h1{letter-spacing:-3px}.nav{padding:19px 28px}}@media(max-width:750px){.headline{display:block}.headline h1{font-size:54px}.headline-side{max-width:580px;margin-top:34px}.workbench{display:block}.controls{border-right:0;border-bottom:1px solid #dce1ea}.preview{padding:19px}.editor-heading{flex-wrap:wrap}.data-fields{grid-template-columns:1fr 1fr}.controls{padding:22px}.chart-kind{grid-template-columns:repeat(4,1fr)}.inspector{grid-template-columns:repeat(3,1fr)}.nav{padding:19px}.nav-right{font-size:9px}.nav-right .pill{display:none}}@media(max-width:450px){.headline{padding:43px 20px 47px}.headline h1{font-size:44px;letter-spacing:-2.4px}.headline .lead{font-size:12px}.headline-side{font-size:11px}.headline-side b{font-size:18px}.editor{padding:23px 10px 40px}.editor-heading{padding:0 9px}.editor-heading h2{font-size:21px}.workbench{border-radius:11px}.chart-kind{grid-template-columns:repeat(3,1fr)}.data-fields{gap:8px}.preview{padding:13px}.previewbar{gap:8px}.previewbar strong{font-size:11px}.canvas-box{padding:3px;min-height:220px}.export button{padding:0 11px}.inspector{padding:13px 11px}.stat strong{font-size:15px}.foot{padding:27px 20px;flex-direction:column;gap:9px}}@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.toast{transition:none}}
+</style></head><body>
+<header class="top"><div class="shell"><nav class="nav"><a class="logo" href="#home" style="color:inherit;text-decoration:none">PLOTCRAFT<span>✳</span></a><div class="nav-right"><span>DATA DESIGN STUDIO / 2026</span><span class="pill"><i class="dot"></i> LOCAL-FIRST</span></div></nav><section class="headline" id="home"><div><span class="kicker">BEAUTIFUL CHARTS. ZERO BARRIERS.</span><h1>数字を、<br><em>伝わるデザインに。</em></h1><p class="lead">CSVを貼るだけで、美しいグラフに。SVG・PNG・PDF・HTMLをすべて無料で書き出せます。登録もアップロードも不要です。</p></div><div class="headline-side"><div><b>07</b> CHART TYPES<br>棒・折れ線・面・円・散布・滝ほか</div><div><b>04</b> EXPORT FORMATS<br> SVG / PNG / PDF / HTML</div></div></section></div></header>
+<main class="shell"><section class="editor" id="studio"><div class="editor-heading"><div><h2>チャートスタジオ <span style="color:#607fff">✳</span></h2><p>編集・プレビュー・出力まで、ブラウザの中で完結します。</p></div><span class="editor-badge">NO ACCOUNT · NO WATERMARK</span></div><div class="workbench">
+<aside class="controls"><span class="section-id">01 — データ</span><label class="upload" for="csv-upload">↥ CSV / TSV ファイルを読み込む<input id="csv-upload" type="file" accept=".csv,.tsv,text/csv,text/tab-separated-values"></label><label class="upload" for="project-upload">↥ 保存したプロジェクト (.json) を開く<input id="project-upload" type="file" accept=".json,application/json"></label><div class="field"><label for="data-source">CSVデータ</label><textarea id="data-source" spellcheck="false"></textarea><span class="field-help">先頭行を列名として扱います。ダブルクォート・改行・カンマを含むセルにも対応。</span></div><div class="samples"><button type="button" data-sample="growth">成長データ</button><button type="button" data-sample="budget">収支データ</button><button type="button" data-sample="science">研究データ</button></div>
+<div class="divider"></div><span class="section-id">02 — グラフの種類</span><div class="chart-kind" id="chart-kinds"><button type="button" data-kind="column" class="active"><span>▥</span>縦棒</button><button type="button" data-kind="bar"><span>☷</span>横棒</button><button type="button" data-kind="line"><span>⌁</span>折れ線</button><button type="button" data-kind="area"><span>◢</span>面</button><button type="button" data-kind="donut"><span>◉</span>ドーナツ</button><button type="button" data-kind="scatter"><span>∴</span>散布図</button><button type="button" data-kind="waterfall"><span>▟</span>ウォーターフォール</button></div>
+<div class="data-fields"><div class="field"><label for="x-col">ラベル・X</label><select id="x-col"></select></div><div class="field"><label for="y-col">数値・Y</label><select id="y-col"></select></div></div>
+<div class="divider"></div><span class="section-id">03 — スタイル</span><div class="field"><label for="chart-title">タイトル</label><input id="chart-title" value="成長の軌跡"></div><div class="field"><label for="chart-subtitle">サブタイトル</label><input id="chart-subtitle" value="2020年から2025年までの推移"></div><div class="field"><label for="chart-source">出典・注記</label><input id="chart-source" value="出典：サンプルデータ"></div><label class="field" style="font-size:11px;font-weight:800">アクセントカラー</label><div id="colors" class="accent-choices"><button type="button" class="accent active" style="background:#3b65ed" data-color="#3b65ed" aria-label="ブルー"></button><button type="button" class="accent" style="background:#12a98f" data-color="#12a98f" aria-label="グリーン"></button><button type="button" class="accent" style="background:#aa7ef0" data-color="#aa7ef0" aria-label="パープル"></button><button type="button" class="accent" style="background:#ec735c" data-color="#ec735c" aria-label="オレンジ"></button><button type="button" class="accent" style="background:#242b3f" data-color="#242b3f" aria-label="チャコール"></button></div>
+</aside><section class="preview" aria-label="チャートプレビュー"><div class="previewbar"><div><strong>LIVE PREVIEW</strong><p>リアルタイム更新・高解像度ベクター</p></div><span class="live">● PREVIEW READY</span></div><div class="canvas-box" id="canvas-box"><div id="svg-host" style="width:100%"></div></div><div class="warning" id="notice" hidden></div><div class="export"><button type="button" class="primary" id="export-svg">↓ SVGを保存</button><button type="button" id="export-png">PNG</button><button type="button" id="export-pdf">PDF</button><button type="button" id="export-html">HTML</button><button type="button" id="export-json">設定JSON</button><button type="button" id="export-csv">元データCSV</button></div><div class="inspector"><div class="stat"><span>有効データ</span><strong id="row-count">—</strong></div><div class="stat"><span>平均値（全件）</span><strong id="average">—</strong></div><div class="stat"><span>最大値（全件）</span><strong id="maximum">—</strong></div></div><p style="font-size:11px;color:#8895a8;line-height:1.9;margin-top:22px">データはこのページから送信されません。SVGは拡大しても鮮明です。PDFは表示品質を維持するため高解像度画像として埋め込まれます。</p></section></div></section></main>
+<footer class="foot shell"><div><b>PLOTCRAFT✳</b> — Research-minded design tools.</div><div>Made to reveal what the numbers actually say. No hidden paywall.</div></footer><div id="toast" class="toast" role="status" aria-live="polite"></div><script>
+(()=>{'use strict';
+const $=s=>document.querySelector(s);
+const SAMPLE={
+ growth:'年度,売上,目標\n2020,120,150\n2021,166,175\n2022,194,205\n2023,241,248\n2024,316,300\n2025,389,375',
+ budget:'項目,収支\n売上,560\n仕入れ,-190\n物流費,-55\n人件費,-120\n広告費,-65\nその他,-22',
+ science:'試行,観測値,理論値\n1,12.4,12.0\n2,14.5,13.8\n3,16.1,15.6\n4,17.2,17.4\n5,19.7,19.2\n6,21.5,21.0\n7,22.6,22.8'
+};
+const S={kind:'column',color:'#3b65ed',csv:SAMPLE.growth,fields:[],rows:[],x:0,y:1,svg:'',visibleRows:0,validRows:0,error:''};
+const ESC=t=>String(t??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const finite=n=>typeof n==='number'&&Number.isFinite(n);
+function parseCSV(text){
+ const source=String(text||'').replace(/^\uFEFF/,'');
+ // Count candidate separators only outside quoted fields in the first logical record.
+ const counts={',':0,'\t':0,';':0};let quotedHeader=false;
+ for(let i=0;i<source.length;i++){
+  const c=source[i];if(c==='"'){if(quotedHeader&&source[i+1]==='"')i++;else quotedHeader=!quotedHeader;}
+  else if(!quotedHeader&&(c==='\r'||c==='\n'))break;
+  else if(!quotedHeader&&Object.prototype.hasOwnProperty.call(counts,c))counts[c]++;
+ }
+ const delim=Object.entries(counts).sort((a,b)=>b[1]-a[1])[0][0];
+ const rows=[];let row=[],cell='',quoted=false;
+ for(let i=0;i<source.length;i++){
+  const c=source[i];
+  if(c==='"'){if(quoted&&source[i+1]==='"'){cell+='"';i++;}else quoted=!quoted;}
+  else if(c===delim&&!quoted){row.push(cell);cell='';}
+  else if((c==='\n'||c==='\r')&&!quoted){if(c==='\r'&&source[i+1]==='\n')i++;row.push(cell);if(row.some(v=>v.trim()))rows.push(row);row=[];cell='';}
+  else cell+=c;
+ }
+ if(quoted)throw Error('CSVの引用符が閉じられていません。');
+ row.push(cell);if(row.some(v=>v.trim()))rows.push(row);
+ if(!rows.length)throw Error('データが空です。');
+ const header=rows.shift().map((s,i)=>s.trim()||`列${i+1}`);
+ if(header.length<2)throw Error('少なくとも2列のデータが必要です。');
+ if(rows.length>15000)throw Error('15,000行を超えています。分割して読み込んでください。');
+ return {header,rows:rows.map((r)=>header.map((_,i)=>(r[i]??'').trim()))};
+}
+const number=s=>{const t=String(s??'').trim().replace(/[,，\s]/g,'').replace(/[￥¥$]/g,'');if(!t||t==='-'||t==='+')return NaN;const value=Number(t);return finite(value)?value:NaN};
+function toast(message){const node=$('#toast');node.textContent=message;node.classList.add('show');clearTimeout(toast.timer);toast.timer=setTimeout(()=>node.classList.remove('show'),2500);}
+function setData(value){S.csv=value;$('#data-source').value=value;parseAndRender();}
+function parseAndRender(){
+ try{
+  const previousX=S.fields[S.x],previousY=S.fields[S.y];
+  const parsed=parseCSV(S.csv);S.rows=parsed.rows;S.fields=parsed.header;
+  if(previousX&&S.fields.includes(previousX))S.x=S.fields.indexOf(previousX);else S.x=0;
+  if(previousY&&S.fields.includes(previousY))S.y=S.fields.indexOf(previousY);else S.y=Math.min(1,S.fields.length-1);
+  S.error='';
+  for(const [node,key] of [['#x-col','x'],['#y-col','y']]){
+   $(node).innerHTML='';S.fields.forEach((field,i)=>{const opt=document.createElement('option');opt.value=String(i);opt.textContent=field;$(node).appendChild(opt)});$(node).value=String(S[key]);
+  }
+ }catch(e){S.error=e.message;S.rows=[];S.fields=[];}
+ render();
+}
+function records(){
+ let all=S.rows.map(row=>({label:row[S.x]||'—',x:number(row[S.x]),v:number(row[S.y])})).filter(row=>finite(row.v)&& (S.kind!=='scatter'||finite(row.x)));
+ if(S.kind==='donut'){all=all.filter(r=>r.v>0);}
+ S.validRows=all.length;S.allRecords=all;S.skippedRows=S.rows.length-all.length;
+ const limit=S.kind==='scatter'?400:60;
+ S.visibleRows=Math.min(all.length,limit);
+ if(all.length<=limit)return all;
+ if(S.kind==='waterfall'||S.kind==='donut'||S.kind==='bar'||S.kind==='column'){
+   // Aggregation/reordering alters meaning for these types. Refuse to imply the full dataset is drawn.
+   return all.slice(0,limit);
+ }
+ // Preserve first/last and critical extrema; sample all timeline segments rather than a biased prefix.
+ const selected=new Set([0,all.length-1]);
+ for(let i=0;i<limit;i++){
+   const start=Math.floor(i*all.length/limit),end=Math.max(start+1,Math.floor((i+1)*all.length/limit));
+   const segment=all.slice(start,end);
+   let chosen=start+Math.floor(segment.length/2);
+   if(S.kind==='line'||S.kind==='area'){
+     const local=segment.reduce((best,r,j)=>Math.abs(r.v)>Math.abs(segment[best].v)?j:best,0);
+     chosen=start+local;
+   }
+   selected.add(chosen);
+ }
+ // Bound to maximum visible marks; require both endpoint and extrema.
+ const globalMin=all.reduce((best,r,i)=>r.v<all[best].v?i:best,0);
+ const globalMax=all.reduce((best,r,i)=>r.v>all[best].v?i:best,0);
+ selected.add(globalMin);selected.add(globalMax);
+ let indexes=[...selected].sort((a,b)=>a-b);
+ while(indexes.length>limit){const removable=indexes.filter(i=>i!==0&&i!==all.length-1&&i!==globalMin&&i!==globalMax);if(!removable.length)break;const drop=removable[Math.floor(removable.length/2)];indexes=indexes.filter(i=>i!==drop);}
+ S.visibleRows=indexes.length;
+ return indexes.map(i=>all[i]);
+}
+const fmt=v=>{if(!finite(v))return '—';const n=Math.abs(v);return (n>=1000000?v.toLocaleString('en-US',{maximumFractionDigits:0}):n>=10?v.toLocaleString('en-US',{maximumFractionDigits:1}):v.toLocaleString('en-US',{maximumFractionDigits:2}));};
+const pal=['#3b65ed','#13a98d','#e4a23d','#ab83eb','#ed6e70','#6395b2','#63728b','#c7aedf'];
+function niceTicks(lo,hi,count=5){if(lo===hi){lo=lo===0?0:lo-Math.abs(lo)*.1;hi=hi===0?1:hi+Math.abs(hi)*.1;}const rough=(hi-lo)/count,pow=10**Math.floor(Math.log10(Math.max(rough,1e-12))),normalized=rough/pow,step=(normalized<=1?1:normalized<=2?2:normalized<=2.5?2.5:normalized<=5?5:10)*pow;const min=Math.floor(lo/step)*step,max=Math.ceil(hi/step)*step;const ticks=[];for(let v=min;v<=max+step*.001&&ticks.length<20;v+=step)ticks.push(Math.abs(v)<step*1e-6?0:Number(v.toPrecision(12)));return {min,max,ticks};}
+function escapeLabel(s,max=22){s=String(s);return ESC(s.length>max?s.slice(0,max-1)+'…':s);}
+const shape=(tag,attrs,body='')=>`<${tag} ${Object.entries(attrs).map(([k,v])=>`${k}="${ESC(v)}"`).join(' ')}>${body}</${tag}>`;
+function baseLines(grid,min,max,left,top,right,bottom,horizontal=false){
+ const s=[];const range=(max-min)||1;
+ for(const t of grid){
+  if(!horizontal){const y=bottom-(t-min)/range*(bottom-top);s.push(`<line x1="${left}" y1="${y.toFixed(2)}" x2="${right}" y2="${y.toFixed(2)}" stroke="#e9ecf1" stroke-width="1"/>`);s.push(shape('text',{x:left-15,y:y+4,'text-anchor':'end',fill:'#8290a4','font-size':12},fmt(t)));}
+  else{const x=left+(t-min)/range*(right-left);s.push(`<line x1="${x.toFixed(2)}" y1="${top}" x2="${x.toFixed(2)}" y2="${bottom}" stroke="#e9ecf1" stroke-width="1"/>`);s.push(shape('text',{x,y:bottom+25,'text-anchor':'middle',fill:'#8290a4','font-size':12},fmt(t)));}
+ }
+ return s.join('');
+}
+function cartesian(items,kind,color){
+ const left=kind==='bar'?220:98,right=936,top=156,bottom=490,wide=right-left,tall=bottom-top;
+ let lo=Math.min(0,...items.map(r=>r.v)),hi=Math.max(0,...items.map(r=>r.v));
+ if(kind==='waterfall'){let accum=0;lo=0;hi=0;for(const r of items){accum+=r.v;lo=Math.min(lo,accum);hi=Math.max(hi,accum);}}
+ const scale=niceTicks(lo,hi);let body=baseLines(scale.ticks,scale.min,scale.max,left,top,right,bottom,kind==='bar');
+ const toY=v=>bottom-(v-scale.min)/(scale.max-scale.min)*(bottom-top);
+ const toX=v=>left+(v-scale.min)/(scale.max-scale.min)*(right-left);
+ if(kind==='column'||kind==='waterfall'){
+  const slot=wide/items.length,bw=Math.max(2,Math.min(82,slot*.68));let accum=0;
+  items.forEach((r,i)=>{const x=left+slot*i+(slot-bw)/2;let start=0,end=r.v;
+   if(kind==='waterfall'){start=accum;accum+=r.v;end=accum;}
+   const a=toY(start),b=toY(end),h=Math.max(1,Math.abs(b-a));
+   body+=`<rect x="${x.toFixed(2)}" y="${Math.min(a,b).toFixed(2)}" width="${bw.toFixed(2)}" height="${h.toFixed(2)}" rx="3" fill="${r.v>=0?color:'#e9727b'}"><title>${ESC(r.label)}: ${ESC(fmt(r.v))}${kind==='waterfall'?` (合計 ${ESC(fmt(accum))})`:''}</title></rect>`;
+   const labX=left+(i+.5)*slot;
+   body+=shape('text',{x:labX,y:bottom+23,'text-anchor':'middle','font-size':Math.min(12,slot*.25),fill:'#728093'},escapeLabel(r.label,Math.max(5,Math.round(slot/8))));
+   if(slot>52)body+=shape('text',{x:labX,y:Math.max(top+16,Math.min(a,b)-9),'text-anchor':'middle','font-weight':700,'font-size':12,fill:'#42506a'},fmt(r.v));
+  });
+ }else if(kind==='bar'){
+  const slot=tall/items.length,bh=Math.min(25,slot*.68);
+  items.forEach((r,i)=>{const y=top+i*slot+(slot-bh)/2,a=toX(0),b=toX(r.v);
+   body+=`<rect x="${Math.min(a,b).toFixed(2)}" y="${y.toFixed(2)}" width="${Math.max(1,Math.abs(b-a)).toFixed(2)}" height="${bh.toFixed(2)}" rx="3" fill="${r.v>=0?color:'#e9727b'}"><title>${ESC(r.label)}: ${ESC(fmt(r.v))}</title></rect>`;
+   body+=shape('text',{x:left-12,y:y+bh*.72,'text-anchor':'end','font-size':Math.min(13,slot*.5),fill:'#536177'},escapeLabel(r.label,23));
+   if(slot>29)body+=shape('text',{x:r.v>=0?Math.min(right-18,b+9):Math.max(left+14,b-9),y:y+bh*.72,'text-anchor':r.v>=0?'start':'end','font-size':12,fill:'#536177'},fmt(r.v));
+  });
+ }else if(kind==='line'||kind==='area'){
+  const slot=items.length===1?0:wide/(items.length-1),pts=items.map((r,i)=>[left+i*slot,toY(r.v)]);
+  const d=pts.map(([x,y],i)=>`${i?'L':'M'}${x.toFixed(2)},${y.toFixed(2)}`).join(' ');
+  if(kind==='area')body+=`<path d="${d} L${pts.at(-1)[0].toFixed(2)},${toY(0).toFixed(2)} L${pts[0][0].toFixed(2)},${toY(0).toFixed(2)} Z" fill="${color}" opacity=".17"/>`;
+  body+=`<path d="${d}" fill="none" stroke="${color}" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>`;
+  const every=Math.max(1,Math.ceil(items.length/12));
+  items.forEach((r,i)=>{const [x,y]=pts[i];body+=`<circle cx="${x}" cy="${y}" r="${items.length>40?2:5}" fill="white" stroke="${color}" stroke-width="3"><title>${ESC(r.label)}: ${ESC(fmt(r.v))}</title></circle>`;if(i%every===0)body+=shape('text',{x,y:bottom+22,'text-anchor':'middle','font-size':12,fill:'#788597'},escapeLabel(r.label,9));});
+ }
+ return body;
+}
+function donut(items,color){
+ const total=items.reduce((s,r)=>s+r.v,0);
+ if(!finite(total)||total<=0)throw Error('ドーナツグラフは合計が有限の正の値である必要があります。');
+ const cx=430,cy=320,radius=157,inner=92;
+ const colors=[color,...pal.filter(c=>c!==color)];
+ let start=-Math.PI/2,out='';
+ items.forEach((item,i)=>{const angle=item.v/total*2*Math.PI,end=start+angle;
+  const x1=cx+radius*Math.cos(start),y1=cy+radius*Math.sin(start),x2=cx+radius*Math.cos(end),y2=cy+radius*Math.sin(end);
+  const ix1=cx+inner*Math.cos(start),iy1=cy+inner*Math.sin(start),ix2=cx+inner*Math.cos(end),iy2=cy+inner*Math.sin(end);
+  const color=colors[i%colors.length];
+  if(angle>=Math.PI*2-1e-5)out+=`<circle cx="${cx}" cy="${cy}" r="${radius}" fill="${color}"/>`;
+  else out+=`<path d="M${x1},${y1} A${radius},${radius} 0 ${angle>Math.PI?1:0} 1 ${x2},${y2} L${ix2},${iy2} A${inner},${inner} 0 ${angle>Math.PI?1:0} 0 ${ix1},${iy1} Z" fill="${color}" stroke="white" stroke-width="2"><title>${ESC(item.label)}: ${ESC(fmt(item.v))} (${(item.v/total*100).toFixed(1)}%)</title></path>`;
+  start=end;
+ });
+ out+=`<circle cx="${cx}" cy="${cy}" r="${inner}" fill="white"/><text x="${cx}" y="${cy-2}" text-anchor="middle" font-size="32" font-weight="800" fill="#222d42">${ESC(fmt(total))}</text><text x="${cx}" y="${cy+23}" text-anchor="middle" font-size="12" fill="#8290a4">TOTAL</text>`;
+ items.slice(0,12).forEach((item,i)=>{const y=200+i*29;out+=`<circle cx="680" cy="${y-5}" r="6" fill="${colors[i%colors.length]}"/>`+shape('text',{x:695,y,'font-size':12,fill:'#526177'},escapeLabel(item.label,21))+shape('text',{x:916,y,'font-size':12,'font-weight':750,'text-anchor':'end',fill:'#34425b'},`${(item.v/total*100).toFixed(1)}%`);});
+ return out;
+}
+function scatter(items,color){
+ const left=100,right=936,top=157,bottom=490;
+ const xscale=niceTicks(Math.min(...items.map(r=>r.x)),Math.max(...items.map(r=>r.x)));
+ const yscale=niceTicks(Math.min(...items.map(r=>r.v)),Math.max(...items.map(r=>r.v)));
+ const x=v=>left+(v-xscale.min)/(xscale.max-xscale.min)*(right-left),y=v=>bottom-(v-yscale.min)/(yscale.max-yscale.min)*(bottom-top);
+ let out=baseLines(yscale.ticks,yscale.min,yscale.max,left,top,right,bottom)+baseLines(xscale.ticks,xscale.min,xscale.max,left,top,right,bottom,true);
+ for(const r of items){out+=`<circle cx="${x(r.x).toFixed(2)}" cy="${y(r.v).toFixed(2)}" r="5.4" fill="${color}" fill-opacity=".65" stroke="#fff" stroke-width=".8"><title>X: ${ESC(fmt(r.x))}, Y: ${ESC(fmt(r.v))}</title></circle>`;}
+ return out;
+}
+function render(){
+ const host=$('#svg-host'),notice=$('#notice');notice.hidden=true;notice.textContent='';
+ try{
+  if(S.error)throw Error(S.error);
+  const vals=records();if(!vals.length)throw Error('有効な数値データがありません。列の選択とCSVを確認してください。');
+  if(S.kind==='donut'&&S.validRows>12)throw Error('ドーナツグラフは12カテゴリ以下で使用してください。');
+  let drawing=S.kind==='donut'?donut(vals,S.color):S.kind==='scatter'?scatter(vals,S.color):cartesian(vals,S.kind,S.color);
+  const title=$('#chart-title').value,subtitle=$('#chart-subtitle').value,source=$('#chart-source').value;
+  const svg=`<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="600" viewBox="0 0 1000 600" role="img" aria-labelledby="title desc"><title id="title">${ESC(title)}</title><desc id="desc">${ESC(subtitle)}; ${ESC(source)}. Data points: ${S.visibleRows}</desc><rect width="1000" height="600" fill="#ffffff"/><text x="78" y="70" font-size="30" font-weight="800" fill="#1b293e" font-family="Arial,'Noto Sans JP',sans-serif">${ESC(title.slice(0,45))}</text><text x="78" y="104" font-size="14" fill="#7d8a9c" font-family="Arial,'Noto Sans JP',sans-serif">${ESC(subtitle.slice(0,95))}</text><line x1="78" y1="122" x2="924" y2="122" stroke="#e7ebf1"/> <g font-family="Arial,'Noto Sans JP',sans-serif">${drawing}</g><line x1="78" y1="540" x2="924" y2="540" stroke="#e7ebf1"/><text x="80" y="565" font-size="12" fill="#8f98a7" font-family="Arial,'Noto Sans JP',sans-serif">${ESC(source.slice(0,115))}</text><text x="921" y="565" text-anchor="end" font-size="12" fill="#a2aabb" font-family="Arial,sans-serif" font-weight="700">PLOTCRAFT</text></svg>`;
+  S.svg=svg;host.innerHTML=svg;
+  const mean=S.allRecords.reduce((s,r)=>s+r.v,0)/S.allRecords.length;
+  $('#row-count').textContent=`${S.validRows.toLocaleString()} 件`;
+  $('#average').textContent=fmt(mean);
+  $('#maximum').textContent=fmt(S.allRecords.reduce((max,r)=>Math.max(max,r.v),-Infinity));
+  for(const node of document.querySelectorAll('.export button'))node.disabled=false;
+  const warnings=[];if(S.validRows>S.visibleRows)warnings.push(`${S.validRows}件のうち${S.visibleRows}件を表示（${['line','area','scatter'].includes(S.kind)?'全範囲をサンプリングし端点と極値を優先':'先頭のみ表示'}）。統計値は全有効データに基づきます。`);if(S.skippedRows>0)warnings.push(`無効または対象外の値 ${S.skippedRows}件を除外しました。`);if(warnings.length){notice.textContent=warnings.join('　');notice.hidden=false;}
+ }catch(e){S.svg='';host.innerHTML=`<p class="empty-error" role="alert">${ESC(e.message)}</p>`;$('#row-count').textContent='—';$('#average').textContent='—';$('#maximum').textContent='—';document.querySelectorAll('.export button').forEach(n=>n.disabled=true);}
+}
+function save(blob,name){const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),20000);}
+function svgBlob(){return new Blob([S.svg],{type:'image/svg+xml;charset=utf-8'});}
+async function bitmap(mime='image/png'){
+ const url=URL.createObjectURL(svgBlob());try{
+  const img=new Image();img.src=url;await new Promise((res,rej)=>{img.onload=res;img.onerror=()=>rej(Error('描画エンジンがSVGを読み込めません。'))});
+  const canvas=document.createElement('canvas');canvas.width=2000;canvas.height=1200;const ctx=canvas.getContext('2d');ctx.fillStyle='white';ctx.fillRect(0,0,canvas.width,canvas.height);ctx.drawImage(img,0,0,canvas.width,canvas.height);
+  return await new Promise((res,rej)=>canvas.toBlob(v=>v?res(v):rej(Error('画像の保存に失敗しました。')),mime,.94));
+ }finally{URL.revokeObjectURL(url)}
+}
+function jpegPDF(arrayBuffer){
+ const img=new Uint8Array(arrayBuffer),te=new TextEncoder(),parts=[],offsets=[0];let total=0;
+ const push=x=>{const b=typeof x==='string'?te.encode(x):x;parts.push(b);total+=b.length};
+ const obj=(id,header,stream)=>{offsets[id]=total;push(`${id} 0 obj\n${header}`);if(stream){push('\nstream\n');push(stream);push('\nendstream');}push('\nendobj\n');};
+ const w=841.89,h=595.28,cw=770,ch=cw*1200/2000,x=(w-cw)/2,y=(h-ch)/2;
+ const content=`q\n${cw} 0 0 ${ch} ${x} ${y} cm\n/Im0 Do\nQ\n`;
+ push('%PDF-1.4\n');obj(1,'<< /Type /Catalog /Pages 2 0 R >>');obj(2,'<< /Type /Pages /Count 1 /Kids [3 0 R] >>');obj(3,`<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ${w} ${h}] /Resources << /XObject << /Im0 4 0 R >> >> /Contents 5 0 R >>`);
+ obj(4,`<< /Type /XObject /Subtype /Image /Width 2000 /Height 1200 /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length ${img.length} >>`,img);
+ obj(5,`<< /Length ${te.encode(content).length} >>`,te.encode(content));
+ const pos=total;push(`xref\n0 ${offsets.length}\n0000000000 65535 f \n`);for(let i=1;i<offsets.length;i++)push(`${String(offsets[i]).padStart(10,'0')} 00000 n \n`);push(`trailer\n<< /Size ${offsets.length} /Root 1 0 R >>\nstartxref\n${pos}\n%%EOF`);
+ return new Blob(parts,{type:'application/pdf'});
+}
+const basename='plotcraft-chart';
+$('#chart-kinds').addEventListener('click',e=>{const b=e.target.closest('[data-kind]');if(!b)return;S.kind=b.dataset.kind;document.querySelectorAll('[data-kind]').forEach(x=>{x.classList.toggle('active',x===b);x.setAttribute('aria-pressed',String(x===b));});render();});
+$('#colors').addEventListener('click',e=>{const b=e.target.closest('[data-color]');if(!b)return;S.color=b.dataset.color;document.querySelectorAll('[data-color]').forEach(x=>x.classList.toggle('active',x===b));render();});
+$('#data-source').addEventListener('input',e=>{S.csv=e.target.value;clearTimeout(S.timer);S.timer=setTimeout(parseAndRender,120)});
+$('#csv-upload').addEventListener('change',async e=>{const f=e.target.files[0];if(!f)return;if(f.size>8*1024*1024){toast('CSVは8MB以下にしてください。');return;}setData(await f.text());e.target.value='';toast('CSVを読み込みました。');});
+$('#project-upload').addEventListener('change',async e=>{const f=e.target.files[0];if(!f)return;try{if(f.size>8*1024*1024)throw Error('プロジェクトファイルは8MB以下にしてください。');const proj=JSON.parse(await f.text());if(proj.application!=='PLOTCRAFT'||proj.schema!==1||!['column','bar','line','area','donut','scatter','waterfall'].includes(proj.kind)||typeof proj.csv!=='string'||proj.csv.length>8000000||!/^#[a-fA-F0-9]{6}$/.test(proj.accent))throw Error('対応するPLOTCRAFTプロジェクトではありません。');S.kind=proj.kind;S.color=proj.accent;S.x=0;S.y=1;S.fields=[];['title','subtitle','source'].forEach(k=>$('#chart-'+k).value=String(proj[k]||'').slice(0,160));document.querySelectorAll('[data-kind]').forEach(b=>b.classList.toggle('active',b.dataset.kind===S.kind));document.querySelectorAll('[data-color]').forEach(b=>b.classList.toggle('active',b.dataset.color===S.color));setData(proj.csv);S.x=Math.max(0,S.fields.indexOf(proj.x));S.y=Math.max(0,S.fields.indexOf(proj.y));$('#x-col').value=String(S.x);$('#y-col').value=String(S.y);render();toast('プロジェクトを復元しました。')}catch(err){toast(err.message)}finally{e.target.value='';}});
+document.querySelectorAll('[data-sample]').forEach(b=>b.onclick=()=>{const key=b.dataset.sample;setData(SAMPLE[key]);S.kind=key==='budget'?'waterfall':key==='science'?'scatter':'column';document.querySelectorAll('[data-kind]').forEach(x=>x.classList.toggle('active',x.dataset.kind===S.kind));$('#chart-title').value=key==='budget'?'事業収支の構造':key==='science'?'実験値の分布':'成長の軌跡';$('#chart-subtitle').value=key==='budget'?'売上から費用を順に差し引いた推移':key==='science'?'数値データを点で可視化':'2020年から2025年までの推移';render();});
+$('#x-col').onchange=e=>{S.x=Number(e.target.value);render()};$('#y-col').onchange=e=>{S.y=Number(e.target.value);render()};
+['chart-title','chart-subtitle','chart-source'].forEach(id=>$('#'+id).addEventListener('input',render));
+$('#export-svg').onclick=()=>{if(S.svg)save(svgBlob(),basename+'.svg')};
+$('#export-png').onclick=async()=>{try{if(S.svg)save(await bitmap(),basename+'.png')}catch(e){toast(e.message)}};
+$('#export-pdf').onclick=async()=>{try{if(S.svg)save(jpegPDF(await(await bitmap('image/jpeg')).arrayBuffer()),basename+'.pdf')}catch(e){toast(e.message)}};
+$('#export-csv').onclick=()=>{save(new Blob([S.csv],{type:'text/csv;charset=utf-8'}),basename+'-source.csv')};
+$('#export-html').onclick=()=>{if(!S.svg)return;const table=`<details class="data-table"><summary>使用データを確認 (${S.rows.length}行、列は${S.fields.length})</summary><div style="overflow:auto;max-height:520px"><table><thead><tr>${S.fields.map(c=>`<th scope="col">${ESC(c)}</th>`).join('')}</tr></thead><tbody>${S.rows.map(r=>`<tr>${S.fields.map((_,i)=>`<td>${ESC(r[i]??'')}</td>`).join('')}</tr>`).join('')}</tbody></table></div></details>`;const page=`<!doctype html><html lang="ja"><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${ESC($('#chart-title').value)}</title><style>body{font-family:system-ui,sans-serif;background:#f3f5f9;padding:24px;margin:0}main{max-width:1080px;margin:5vh auto;background:white;box-shadow:0 20px 40px #0001;border-radius:12px;padding:20px}svg{max-width:100%;height:auto}.data-table{margin:22px auto;max-width:1000px;font-size:14px;color:#253146}.data-table summary{cursor:pointer;padding:10px;font-weight:700}.data-table table{border-collapse:collapse;width:100%}.data-table th,.data-table td{padding:8px 12px;border:1px solid #d7dfea;text-align:left;white-space:pre-wrap}</style><main>${S.svg}${table}</main></html>`;save(new Blob([page],{type:'text/html'}),basename+'.html')};
+$('#export-json').onclick=()=>{if(!S.svg)return;save(new Blob([JSON.stringify({application:'PLOTCRAFT',schema:1,kind:S.kind,accent:S.color,title:$('#chart-title').value,subtitle:$('#chart-subtitle').value,source:$('#chart-source').value,x:S.fields[S.x],y:S.fields[S.y],csv:S.csv},null,2)],{type:'application/json'}),basename+'.json')};
+setData(SAMPLE.growth);
+window.PLOTCRAFT_TEST={parseCSV,number,readState:()=>({kind:S.kind,count:S.validRows,shown:S.visibleRows,svg:S.svg,error:S.error,labels:S.allRecords?.map(r=>r.label),skipped:S.skippedRows})};
+})();
+</script></body></html>
